@@ -1,4 +1,5 @@
 package com.tagadvance.marquee;
+
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -48,7 +49,7 @@ public class Marquee extends JApplet {
 		} catch (InvocationTargetException ex) {
 			ex.getCause().printStackTrace();
 		}
-		
+
 		Thread thread = new Thread() {
 			public void run() {
 				String listParam = getParameter("list");
@@ -71,21 +72,20 @@ public class Marquee extends JApplet {
 		thread.setPriority(Thread.NORM_PRIORITY);
 		thread.start();
 	}
-	
+
 	private void displayErrorDialog(String message) {
 		String title = "Error";
-		JOptionPane.showMessageDialog(this, message, title,
-				JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	private void loadImage(String spec) {
 		System.out.println("loading image: " + spec);
 		try {
 			URL input = new URL(spec);
 			BufferedImage image = ImageIO.read(input);
 			images.add(image);
-			
-			if(icon.getImage() == null) {
+
+			if (icon.getImage() == null) {
 				update(image);
 			}
 		} catch (IOException ex) {
@@ -155,17 +155,16 @@ public class Marquee extends JApplet {
 		Dimension size = getContentPane().getSize();
 		Color background = getBackgroundColor();
 		boolean center = true;
-		image = new Thumbnail(image, size.width, size.height, background,
-				center);
+		image = new Thumbnail(image, size.width, size.height, background, center);
 		icon.setImage(image);
 		label.setIcon(icon);
 		label.repaint();
 	}
-	
+
 	private Color getBackgroundColor() {
 		Color background = Color.BLACK;
 		String backgroundParam = getParameter("delay");
-		if(backgroundParam != null) {
+		if (backgroundParam != null) {
 			String hex = backgroundParam.replaceAll("[^0-9]", "");
 			int rgb = Integer.valueOf(hex, 0xF);
 			background = new Color(rgb);
@@ -216,11 +215,8 @@ public class Marquee extends JApplet {
 
 	@Override
 	public String[][] getParameterInfo() {
-		return new String[][]{
-				{"list", "url", ""},
-				{"delay", "integer", "delay in milliseconds"},
-				{"background", "#000000", "background color"},
-		};
+		return new String[][] {{"list", "url", ""}, {"delay", "integer", "delay in milliseconds"},
+				{"background", "#000000", "background color"},};
 	}
 
 }
